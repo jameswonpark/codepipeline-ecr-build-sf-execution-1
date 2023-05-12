@@ -2,15 +2,14 @@
 # This is a Python 2 image that uses the nginx, gunicorn, flask stack
 # for serving inferences in a stable way.
 
-FROM public.ecr.aws/lts/ubuntu:20.04
+FROM public.ecr.aws/docker/library/centos:centos7.9.2009
 
-
-RUN apt-get -y update && apt-get install -y --no-install-recommends \
-         wget \
-         python \
-         nginx \
-         ca-certificates \
-    && rm -rf /var/lib/apt/lists/*
+RUN yum -y update
+RUN yum -y install wget
+RUN yum -y install python
+RUN yum -y install epel-release
+RUN yum -y install nginx
+RUN yum -y install ca-certificates
 
 # Here we get all python packages.
 # There's substantial overlap between scipy and numpy that we eliminate by
